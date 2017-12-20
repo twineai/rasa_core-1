@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Change Log &mdash; Rasa Core 0.7.9 documentation</title>
+  <title>Change Log &mdash; Rasa Core 0.7.0a9 documentation</title>
   
 
   
@@ -30,14 +30,12 @@
   
     <link rel="stylesheet" href="_static/banner.css" type="text/css" />
   
-    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
 
   
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Rasa Core 0.7.9 documentation" href="index.html"/>
+    <link rel="top" title="Rasa Core 0.7.0a9 documentation" href="index.html"/>
         <link rel="prev" title="Tracking Conversation State" href="state.html"/> 
 
   
@@ -90,25 +88,24 @@
             
                 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="motivation.html">Motivation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="no_python.html">But I don&#8217;t code in python!</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="read_first.html">Read this first</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation and Hello World</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tour.html">A Quick Tour (no ML)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_scratch.html">A Bot From Scratch</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Tutorials</span></p>
+<p class="caption"><span class="caption-text">More Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_basics.html">Building a Simple Bot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_supervised.html">Supervised Learning Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_interactive_learning.html">Interactive Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_remote.html">Rasa Core without Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_babi.html">Supervised Learning Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_fake_user.html">Interactive Learning with a Fake User</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Deep Dives</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="domains.html">Domain, Slots, and Actions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stories.html">Stories - The Training Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="patterns.html">Common Patterns</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plumbing.html">Plumbing - How it all fits together</a></li>
-<li class="toctree-l1"><a class="reference internal" href="http.html">HTTP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">Rasa Core as a HTTP server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="domains.html">Domain, Slots, and Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connectors.html">Connecting to messaging &amp; voice platforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stories.html">Training Data Format</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scheduling.html">Scheduling Reminders</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Python API</span></p>
@@ -120,7 +117,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="featurisation.html">Featurization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interpreters.html">Interpreters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="policies.html">Custom Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Creating Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state.html">Tracking Conversation State</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Change Log</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#unreleased-master">[Unreleased] - master</a><ul>
@@ -130,64 +127,27 @@
 <li class="toctree-l3"><a class="reference internal" href="#fixed">Fixed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">[0.7.9] - 2017-11-29</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">[0.7.0] - 2017-10-04</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Changed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">[0.7.8] - 2017-11-27</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a3-2017-09-20">[0.7.0a3] - 2017-09-20</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Changed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">[0.7.7] - 2017-11-24</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Fixed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a1-2017-08-27">[0.6.0a1] - 2017-08-27</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Changed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">[0.7.6] - 2017-11-15</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a1-2017-06-18">[0.5.0a1] - 2017-06-18</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Added</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Changed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id9">Fixed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">[0.7.5] - 2017-11-14</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id13">[0.7.4] - 2017-11-09</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Changed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id15">[0.7.3] - 2017-10-31</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id17">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id18">[0.7.2] - 2017-10-30</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id19">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id21">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id22">[0.7.1] - 2017-10-06</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id23">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id24">[0.7.0] - 2017-10-04</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id25">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id26">Changed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id27">[0.6.0] - 2017-08-27</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id28">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id29">Changed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id30">[0.5.0] - 2017-06-18</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id31">Added</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id32">Changed</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id33">Fixed</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id34">[0.2.0] - 2017-05-18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a1-2017-05-18">[0.2.0a1] - 2017-05-18</a></li>
 </ul>
 </li>
 </ul>
@@ -317,135 +277,15 @@ This project adheres to <a class="reference external" href="http://semver.org/">
 </div>
 </div>
 <div class="section" id="id1">
-<h2>[0.7.9] - 2017-11-29<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>[0.7.0] - 2017-10-04<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id2">
-<h3>Fixed<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>visualisation using Networkx version 2.x</li>
-<li>add output about line of failing intent when parsing story files</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id3">
-<h2>[0.7.8] - 2017-11-27<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3>Fixed<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Pypi readme rendering</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id5">
-<h2>[0.7.7] - 2017-11-24<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id6">
-<h3>Added<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>log bot utterances to tracker</li>
-</ul>
-</div>
-<div class="section" id="id7">
-<h3>Fixed<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>documentation improvements in README</li>
-<li>renamed interpreter argument to rasa core server</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id8">
-<h2>[0.7.6] - 2017-11-15<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id9">
-<h3>Fixed<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>moodbot example train command in docs</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id10">
-<h2>[0.7.5] - 2017-11-14<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id11">
-<h3>Changed<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>&#8220;sender_id&#8221; (and &#8220;DEFAULT_SENDER_ID&#8221;) keyword consistency issue #56</li>
-</ul>
-</div>
-<div class="section" id="id12">
-<h3>Fixed<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>improved moodbot example - more nlu examples as well as better fitting of dialogue model</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id13">
-<h2>[0.7.4] - 2017-11-09<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id14">
-<h3>Changed<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>added method to tracker to retrieve the latest entities #68</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id15">
-<h2>[0.7.3] - 2017-10-31<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id16">
-<h3>Added<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>parameter to specify font size when rendering story visualization</li>
-</ul>
-</div>
-<div class="section" id="id17">
-<h3>Fixed<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>fixed documentation of story visualization</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id18">
-<h2>[0.7.2] - 2017-10-30<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id19">
-<h3>Added<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>added facebook bot example</li>
-<li>added support for conditional checkpoints. a checkpoint can be restricted to
-only allow one to use it if certain slots are set. see docs for details</li>
-<li>utterance templates in domain yaml support buttons and images</li>
-<li>validate domain yaml and raise exception on invalid file</li>
-<li><code class="docutils literal"><span class="pre">run</span></code> script to load models and handle messages from an input channel</li>
-</ul>
-</div>
-<div class="section" id="id20">
-<h3>Changed<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>small dropout in standard keras model to decrease reliance on exact intents</li>
-<li>a LOT of documentation improvements</li>
-</ul>
-</div>
-<div class="section" id="id21">
-<h3>Fixed<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>fixed http error if action listen is not confirmed. #42</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id22">
-<h2>[0.7.1] - 2017-10-06<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id23">
-<h3>Fixed<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>issues with restart events. They created wrong a messed up history leading to
-wrong predictions</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id24">
-<h2>[0.7.0] - 2017-10-04<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id25">
-<h3>Added<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<h3>Added<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>support for Rasa Core usage as a server with remote action execution</li>
 </ul>
 </div>
-<div class="section" id="id26">
-<h3>Changed<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Changed<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>switched to max code line length 80</li>
 <li>removed action id - use <code class="docutils literal"><span class="pre">action.name()</span></code> instead. if an action implementation overrides the name, it should include the <code class="docutils literal"><span class="pre">action_</span></code> prefix (as it is not automatically added anymore)</li>
@@ -453,15 +293,23 @@ wrong predictions</li>
 <li>renamed the whole package to <code class="docutils literal"><span class="pre">rasa_core</span></code> (so <code class="docutils literal"><span class="pre">rasa_dm</span></code> is gone!)</li>
 <li>renamed <code class="docutils literal"><span class="pre">Reminder</span></code> attribute <code class="docutils literal"><span class="pre">id</span></code> to <code class="docutils literal"><span class="pre">name</span></code></li>
 <li>a lot of documentation improvements. docs are now at <a class="reference external" href="https://core.rasa.ai">https://core.rasa.ai</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="a3-2017-09-20">
+<h2>[0.7.0a3] - 2017-09-20<a class="headerlink" href="#a3-2017-09-20" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>Changed<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
 <li>use hashing when writing memorized turns into persistence - requires retraining of all models that are trained with a version prior to this</li>
 <li>changed <code class="docutils literal"><span class="pre">agent.handle_message(...)</span></code> interface for easier usage</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id27">
-<h2>[0.6.0] - 2017-08-27<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id28">
-<h3>Added<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="a1-2017-08-27">
+<h2>[0.6.0a1] - 2017-08-27<a class="headerlink" href="#a1-2017-08-27" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Added<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>support for multiple policies (e.g. one memoization and a Keras policy at the same time)</li>
 <li>loading domains from yaml files instead of defining them with python code</li>
@@ -469,25 +317,25 @@ wrong predictions</li>
 <li>support for reminders</li>
 </ul>
 </div>
-<div class="section" id="id29">
-<h3>Changed<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Changed<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>large refactoring of code base</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id30">
-<h2>[0.5.0] - 2017-06-18<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id31">
-<h3>Added<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="a1-2017-06-18">
+<h2>[0.5.0a1] - 2017-06-18<a class="headerlink" href="#a1-2017-06-18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>Added<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">ScoringPolicy</span></code> added to policy implementations (less strict than standard default policy)</li>
 <li><code class="docutils literal"><span class="pre">RasaNLUInterpreter</span></code> to run a nlu instance within dm (instead of using the http interface)</li>
 <li>more tests</li>
 </ul>
 </div>
-<div class="section" id="id32">
-<h3>Changed<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>Changed<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">UserUtterance</span></code> now holds the complete parse data from nlu (e.g. to access attributes other than entities or intent)</li>
 <li><code class="docutils literal"><span class="pre">Turn</span></code> has a reference to a <code class="docutils literal"><span class="pre">UserUtterance</span></code> instead of directly storing intent &amp; entities (allows access to other data)</li>
@@ -495,8 +343,8 @@ wrong predictions</li>
 <li>order of actions in the DefaultPolicy in <code class="docutils literal"><span class="pre">possible_actions</span></code> (<code class="docutils literal"><span class="pre">ActionListen</span></code> now always has index 0)</li>
 </ul>
 </div>
-<div class="section" id="id33">
-<h3>Fixed<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3>Fixed<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">RedisTrackerStore</span></code> checks if tracker is stored before accessing it (otherwise a <code class="docutils literal"><span class="pre">None</span></code> access exception is thrown)</li>
 <li><code class="docutils literal"><span class="pre">RegexInterpreter</span></code> checks if the regex actually matches the message instead of assuming it always does</li>
@@ -505,8 +353,8 @@ wrong predictions</li>
 </ul>
 </div>
 </div>
-<div class="section" id="id34">
-<h2>[0.2.0] - 2017-05-18<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a1-2017-05-18">
+<h2>[0.2.0a1] - 2017-05-18<a class="headerlink" href="#a1-2017-05-18" title="Permalink to this headline">¶</a></h2>
 <p>First released version.</p>
 </div>
 </div>
@@ -546,30 +394,13 @@ wrong predictions</li>
 <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
         <span class="fa fa-book"> Other Versions</span>
-        v: 0.7.9
+        v: 0.6.9
         <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
         <dl>
             <dt>Tags</dt>
-            <dd><a href="0.7.9/changelog.html">0.7.9</a></dd>
-            <dd><a href="0.7.8/changelog.html">0.7.8</a></dd>
-            <dd><a href="0.7.7/changelog.html">0.7.7</a></dd>
-            <dd><a href="0.7.6/changelog.html">0.7.6</a></dd>
-            <dd><a href="0.7.5/changelog.html">0.7.5</a></dd>
-            <dd><a href="0.7.4/changelog.html">0.7.4</a></dd>
-            <dd><a href="0.7.3/changelog.html">0.7.3</a></dd>
-            <dd><a href="0.7.2/changelog.html">0.7.2</a></dd>
-            <dd><a href="0.7.1/changelog.html">0.7.1</a></dd>
-            <dd><a href="0.7.0/changelog.html">0.7.0</a></dd>
-            <dd><a href="0.7.0a10/changelog.html">0.7.0a10</a></dd>
-            <dd><a href="0.7.0a5/changelog.html">0.7.0a5</a></dd>
-            <dd><a href="0.7.0a6/changelog.html">0.7.0a6</a></dd>
-            <dd><a href="0.7.0a7/changelog.html">0.7.0a7</a></dd>
-            <dd><a href="0.7.0a8/changelog.html">0.7.0a8</a></dd>
-            <dd><a href="0.7.0a9/changelog.html">0.7.0a9</a></dd>
             <dd><a href="0.6.9/changelog.html">0.6.9</a></dd>
-            <dd><a href="0.6.5/changelog.html">0.6.5</a></dd>
         </dl>
         <dl>
             <dt>Branches</dt>
@@ -584,7 +415,7 @@ wrong predictions</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.7.9',
+            VERSION:'0.7.0a9',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -610,18 +441,7 @@ wrong predictions</li>
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
- 
-<!-- Global Site Tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-87333416-4"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments)};
-gtag('js', new Date());
-
-gtag('config', 'UA-87333416-4');
-</script>
-
+   
 
 </body>
 </html>
