@@ -228,6 +228,9 @@
 
     <span class="n">type_name</span> <span class="o">=</span> <span class="s2">&quot;event&quot;</span>
 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
     <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="c1"># Not strictly necessary, but to avoid having both x==y and x!=y</span>
         <span class="c1"># True at the same time</span>
@@ -294,7 +297,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">intent</span> <span class="o">=</span> <span class="n">intent</span> <span class="k">if</span> <span class="n">intent</span> <span class="k">else</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="n">entities</span> <span class="k">if</span> <span class="n">entities</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
 
         <span class="k">if</span> <span class="n">parse_data</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">parse_data</span> <span class="o">=</span> <span class="n">parse_data</span>
@@ -303,6 +306,7 @@
                 <span class="s2">&quot;intent&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">intent</span><span class="p">,</span>
                 <span class="s2">&quot;entities&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">,</span>
                 <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">UserUttered</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="UserUttered.from_parse_data"><a class="viewcode-back" href="../../api/events.html#rasa_core.events.UserUttered.from_parse_data">[docs]</a>    <span class="k">def</span> <span class="nf">from_parse_data</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">parse_data</span><span class="p">):</span>
@@ -376,7 +380,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BotUttered</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">jsonpickle</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
@@ -427,6 +431,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">topic</span> <span class="o">=</span> <span class="n">topic</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TopicSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;TopicSet(topic: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topic</span><span class="p">)</span>
@@ -475,6 +480,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SlotSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;SlotSet(key: </span><span class="si">{}</span><span class="s2">, value: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
@@ -622,6 +628,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">trigger_date_time</span> <span class="o">=</span> <span class="n">trigger_date_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kill_on_user_message</span> <span class="o">=</span> <span class="n">kill_on_user_message</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid1</span><span class="p">())</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ReminderScheduled</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -694,6 +701,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span> <span class="k">if</span> <span class="n">path</span> <span class="k">else</span> <span class="s2">&quot;stories.md&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StoryExported</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="mi">32143124319</span><span class="p">)</span>
@@ -775,6 +783,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">action_name</span> <span class="o">=</span> <span class="n">action_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">unpredictable</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ActionExecuted</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;ActionExecuted(action: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_name</span><span class="p">)</span>
