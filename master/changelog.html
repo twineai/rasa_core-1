@@ -317,6 +317,7 @@ classifier to predict actions (logistic regression by default)</li>
 <li>warn if action emits events when using a model that it did never emit in
 any of the stories the model was trained on</li>
 <li>support for event pushing and endpoints to retrieve the tracker state from the server</li>
+<li>Timestamp to every event</li>
 </ul>
 </div>
 <div class="section" id="changed">
@@ -327,6 +328,8 @@ to <code class="docutils literal"><span class="pre">*</span> <span class="pre">i
 deprecated)</li>
 <li>persist action names in domain during model persistence</li>
 <li>improved travis build speed by not using miniconda</li>
+<li>don&#8217;t fail with an exception but with a helpful error message if an
+utterance template contains a variable that can not be filled</li>
 </ul>
 </div>
 <div class="section" id="removed">
