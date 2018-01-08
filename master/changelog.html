@@ -38,7 +38,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Rasa Core 0.8.0a4 documentation" href="index.html"/>
-        <link rel="prev" title="Tracking Conversation State" href="state.html"/> 
+        <link rel="prev" title="Migration Guide" href="migrations.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -122,6 +122,7 @@
 <li class="toctree-l1"><a class="reference internal" href="interpreters.html">Interpreters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="policies.html">Custom Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state.html">Tracking Conversation State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Migration Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Change Log</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#unreleased-master">[Unreleased] - master</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
@@ -306,6 +307,8 @@ This project adheres to <a class="reference external" href="http://semver.org/">
 <p class="first admonition-title">Note</p>
 <p class="last">This version is not yet released and is under active development.</p>
 </div>
+<p>This is a major version change. Make sure to take a look at the migrations
+guide in the documentation for advice on how to update existing projects.</p>
 <div class="section" id="added">
 <h3>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -323,6 +326,7 @@ any of the stories the model was trained on</li>
 <div class="section" id="changed">
 <h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
+<li>rewrite of the whole FB connector: replaced pymessenger library with fbmessenger</li>
 <li>story file utterance format changed from <code class="docutils literal"><span class="pre">*</span> <span class="pre">_intent_greet[name=Rasa]</span></code>
 to <code class="docutils literal"><span class="pre">*</span> <span class="pre">intent_greet{&quot;name&quot;:</span> <span class="pre">&quot;Rasa&quot;}</span></code> (old format is still supported but
 deprecated)</li>
@@ -549,7 +553,7 @@ wrong predictions</li>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="state.html" class="btn btn-neutral" title="Tracking Conversation State" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="migrations.html" class="btn btn-neutral" title="Migration Guide" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

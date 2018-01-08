@@ -130,6 +130,7 @@
 <li class="toctree-l1"><a class="reference internal" href="interpreters.html">Interpreters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="policies.html">Custom Policies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="state.html">Tracking Conversation State</a></li>
+<li class="toctree-l1"><a class="reference internal" href="migrations.html">Migration Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
 </ul>
 
@@ -255,11 +256,9 @@ connection to facebook.</p>
 <p>you need to supply a <code class="docutils literal"><span class="pre">credentials.yml</span></code> with the following content:</p>
 <div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">verify</span><span class="p">:</span> <span class="s2">&quot;rasa-bot&quot;</span>
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">verify</span><span class="p">:</span> <span class="s2">&quot;rasa-bot&quot;</span>
 <span class="n">secret</span><span class="p">:</span> <span class="s2">&quot;3e34709d01ea89032asdebfe5a74518&quot;</span>
-<span class="n">page</span><span class="o">-</span><span class="n">tokens</span><span class="p">:</span>
-  <span class="mi">1730621093913654</span><span class="p">:</span> <span class="s2">&quot;EAAbHPa7H9rEBAAuFk4Q3gPKbDedQnx4djJJ1JmQ7CAqO4iJKrQcNT0wtD&quot;</span>
+<span class="n">page</span><span class="o">-</span><span class="n">access</span><span class="o">-</span><span class="n">token</span><span class="p">:</span> <span class="s2">&quot;EAAbHPa7H9rEBAAuFk4Q3gPKbDedQnx4djJJ1JmQ7CAqO4iJKrQcNT0wtD&quot;</span>
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -295,7 +294,7 @@ from your webserver creation logic.</p>
 <span class="n">input_channel</span> <span class="o">=</span> <span class="n">FacebookInput</span><span class="p">(</span>
    <span class="n">fb_verify</span><span class="o">=</span><span class="s2">&quot;YOUR_FB_VERIFY&quot;</span><span class="p">,</span>  <span class="c1"># you need tell facebook this token, to confirm your URL</span>
    <span class="n">fb_secret</span><span class="o">=</span><span class="s2">&quot;YOUR_FB_SECRET&quot;</span><span class="p">,</span>  <span class="c1"># your app secret</span>
-   <span class="n">fb_tokens</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;YOUR_FB_PAGE_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;YOUR_FB_PAGE_TOKEN&quot;</span><span class="p">},</span>   <span class="c1"># page ids + tokens you subscribed to</span>
+   <span class="n">fb_access_token</span><span class="o">=</span><span class="s2">&quot;YOUR_FB_PAGE_ACCESS_TOKEN&quot;</span><span class="p">},</span>   <span class="c1"># token for the page you subscribed to</span>
    <span class="n">debug_mode</span><span class="o">=</span><span class="bp">True</span>    <span class="c1"># enable debug mode for underlying fb library</span>
 <span class="p">)</span>
 
@@ -313,7 +312,7 @@ facebook developer portal.</p>
 <div><ol class="arabic simple">
 <li>To create the app go to: <a class="reference external" href="https://developers.facebook.com/">https://developers.facebook.com/</a> and click on <em>&#8220;Add a new app&#8221;</em>.</li>
 <li>go onto the dashboard for the app and under <em>Products</em>, click <em>Add Product</em> and <em>add Messenger</em>. Under the settings for Messenger, scroll down to <em>Token Generation</em> and click on the link to create a new page for your app.</li>
-<li>Go to the facebook page you just created and copy the <em>page id</em> from the url.</li>
+<li>Use the collected <code class="docutils literal"><span class="pre">verify</span></code>, <code class="docutils literal"><span class="pre">secret</span></code> and <code class="docutils literal"><span class="pre">access</span> <span class="pre">token</span></code> to connect your bot to facebook.</li>
 </ol>
 </div></blockquote>
 <p class="last">For more detailed steps, visit the
