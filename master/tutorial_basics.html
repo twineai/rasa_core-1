@@ -678,7 +678,7 @@ and the previously created NLU model to run our bot:</p>
 <p>If you want to handle input from facebook instead of the command line, you can
 specify that as part of the run command, after creating a credentials file
 containing the information to connect to facebook. Let&#8217;s put that
-into <code class="docutils literal"><span class="pre">credentials.yml</span></code>:</p>
+into <code class="docutils literal"><span class="pre">fb_credentials.yml</span></code>:</p>
 <div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">verify</span><span class="p">:</span> <span class="s2">&quot;rasa-bot&quot;</span>
@@ -690,7 +690,7 @@ into <code class="docutils literal"><span class="pre">credentials.yml</span></co
 <a class="reference internal" href="connectors.html#facebook-connector"><span class="std std-ref">Facebook Messenger Setup</span></a> for an explanation of the different values.</p>
 <p>After setting that up, we can now run the bot using</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>python -m rasa_core.run -d models/dialogue -u models/nlu/current <span class="se">\</span>
-   --port <span class="m">5002</span> --connector facebook --credentials credentials.yml
+   --port <span class="m">5002</span> --connector facebook --credentials fb_credentials.yml
 </pre></div>
 </div>
 <p>and it will now handle messages users send to the facebook page!</p>
