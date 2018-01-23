@@ -100,12 +100,12 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial_basics.html">Building a Simple Bot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_supervised.html">Supervised Learning Tutorial</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Interactive Learning</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#motivation-why-interactive-learning">Motivation: Why Interactive Learning?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-problem">The Problem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-bot">The Bot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-domain">The Domain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stateless-stories">Stateless Stories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#training">Training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Interactive Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motivation-why-interactive-learning">Motivation: Why Interactive Learning?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_remote.html">Rasa Core without Python</a></li>
@@ -248,45 +248,32 @@ don&#8217;t have any conversations to use as training data. We will assume that
 you&#8217;ve already thought of what intents and entities you need (check out the
 <a class="reference external" href="http://nlu.rasa.ai/tutorial.html#tutorial-a-simple-restaurant-search-bot">Rasa NLU</a>
 docs if you don&#8217;t know what those are).</p>
-<p class="last"><a class="reference external" href="https://github.com/RasaHQ/rasa_core/tree/master/examples/concertbot">Example Code on GitHub</a></p>
+<p class="last">We&#8217;re using this <a class="reference external" href="https://github.com/RasaHQ/rasa_core/tree/master/examples/concertbot">Example Code on GitHub</a>.</p>
 </div>
-<div class="section" id="motivation-why-interactive-learning">
-<h2>Motivation: Why Interactive Learning?<a class="headerlink" href="#motivation-why-interactive-learning" title="Permalink to this headline">¶</a></h2>
-<p>There are some complications to chatbot training which makes them more
-tricky than most machine learning problems.</p>
-<p>The first is that there
-are several ways of getting to the same goal, and they may all be equivalently good.
-Therefore it is wrong to say with certainty that given X, you should do Y,
-and if you do not do exactly Y then you are wrong. This is essentially
-what you do in a fully supervised learning case. We want the bot
-to be able to learn it can get to a successful state through a number of
-different means.</p>
-<p>Secondly, the utterances from users will be strongly affected by the
-actions of the bot. That means that a network trained on pre-collected
-data will suffer from <a class="reference external" href="https://arxiv.org/abs/1511.06732">exposure bias</a>,
-this is when a system is trained to make predictions but is never given the ability to train on its own predictions, instead being given the
-ground truth every time. This has been shown to have issues when trying
-to predict sequences multiple steps into the future.</p>
-<p>Also, from a practical perspective Rasa Core developers should be able to train
-via the <a class="reference external" href="https://en.wikipedia.org/wiki/Wizard_of_Oz_experiment">Wizard of Oz</a>
-method. I.e. if you want a bot to do a certain task, you can simply
-pretend to be a bot for a little while and at the end it will learn how
-to respond. This is a good way of learning how to make natural and flowing</p>
+<div class="section" id="the-problem">
+<h2>The Problem<a class="headerlink" href="#the-problem" title="Permalink to this headline">¶</a></h2>
+<p>Your bot usually has well-defined goals it should reach when talking to a
+user. There are often numerous different ways the conversation could
+develop before reaching this final stage. We&#8217;ll teach you how to use
+Rasa Core to bootstrap full-blown conversations from minimal to no training
+data.</p>
 </div>
 <div class="section" id="the-bot">
 <h2>The Bot<a class="headerlink" href="#the-bot" title="Permalink to this headline">¶</a></h2>
-<p>We will build a bot that can recommend concerts to go to.
-We&#8217;ll show how to implement context-aware behaviour without writing a flow chart.
-For example, if our user asks the question: <em>which of those has better reviews?</em>,
-our bot should know whether they want to compare <em>musicians</em> or <em>venues</em>.</p>
-<p>Let&#8217;s go!</p>
+<p>Say you want to  build a bot that recommends concerts to go to. There is one
+goal: you know that at the end of the conversation you want your bot to
+make a recommendation. We&#8217;ll show how to implement context-aware behaviour
+without writing a flow chart. For example, if our user asks the question:
+<em>which of those has better reviews?</em>, our bot should know whether they want
+to compare <em>musicians</em> or <em>venues</em>.</p>
+<p>Head over to <code class="docutils literal"><span class="pre">examples/concertbot</span></code> for this example. Let&#8217;s go!</p>
 </div>
 <div class="section" id="the-domain">
 <h2>The Domain<a class="headerlink" href="#the-domain" title="Permalink to this headline">¶</a></h2>
 <p>We will keep the concert domain simple, and won&#8217;t add any slots just yet.
 We&#8217;ll also only support these intents:
-<code class="docutils literal"><span class="pre">&quot;greet&quot;,</span> <span class="pre">&quot;thankyou&quot;,</span> <span class="pre">&quot;goodbye&quot;,</span> <span class="pre">&quot;search_concerts&quot;,</span> <span class="pre">&quot;search_venues&quot;,</span> <span class="pre">&quot;compare_reviews&quot;</span></code>
-Here is the domain definition:</p>
+<code class="docutils literal"><span class="pre">&quot;greet&quot;,</span> <span class="pre">&quot;thankyou&quot;,</span> <span class="pre">&quot;goodbye&quot;,</span> <span class="pre">&quot;search_concerts&quot;,</span> <span class="pre">&quot;search_venues&quot;,</span>
+<span class="pre">&quot;compare_reviews&quot;</span></code>. Here is the domain definition (<code class="docutils literal"><span class="pre">concert_domain.yml</span></code>):</p>
 <div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -363,15 +350,22 @@ Here is the domain definition:</p>
 </div>
 <div class="section" id="stateless-stories">
 <h2>Stateless Stories<a class="headerlink" href="#stateless-stories" title="Permalink to this headline">¶</a></h2>
-<p>We start by training a stateless model on some simple dialogues in the Rasa story format.</p>
+<p>We start by training a stateless model on some simple dialogues in the
+Rasa story format. This means we define conversations with
+one user utterance and only a few (typically one) bot action in response. We
+will use these stateless stories as a starting point for interactive learning.</p>
+<p>In many cases, simple training &#8216;conversations&#8217; are just a single turn and
+response: &#8220;Hello&#8221; is always met with a greeting, &#8220;goodbye!&#8221; is always met
+with a sign-off, and the correct response to &#8220;thank you&#8221; is pretty much
+always &#8220;you&#8217;re welcome&#8221;.</p>
 <p>Below is an excerpt of the stories.</p>
-<p>In many cases, your bot&#8217;s &#8216;conversations&#8217; are just a single turn and response:
-&#8220;Hello&#8221; is always met with a greeting, &#8220;goodbye!&#8221; is always met with a sign-off,
-and the correct response to &#8220;thank you&#8221; is pretty much always &#8220;you&#8217;re welcome&#8221;.</p>
-<p>Notice that below, we&#8217;ve defined two stories, showing that
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Notice that below, we&#8217;ve defined two stories, showing that
 <code class="docutils literal"><span class="pre">action_show_venue_reviews</span></code> and <code class="docutils literal"><span class="pre">action_show_concert_reviews</span></code>
-are both possible responses to the <code class="docutils literal"><span class="pre">compare_reviews</span></code> intent, but neither references
-any context. That comes later.</p>
+are both possible responses to the <code class="docutils literal"><span class="pre">compare_reviews</span></code> intent, but neither
+references any context. That comes later.</p>
+</div>
 <div class="highlight-md"><div class="highlight"><pre><span></span><span class="gu">##</span> greet
 <span class="k">*</span> greet
     <span class="k">-</span> action_greet
@@ -391,58 +385,34 @@ any context. That comes later.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="training">
-<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
-<p>We start by training the policy to recognise these input-output pairs independently of any context.
-( You can see the definition of the <code class="docutils literal"><span class="pre">ConcertPolicy</span></code> class in <code class="docutils literal"><span class="pre">policy.py</span></code>. )
-Run the script <code class="docutils literal"><span class="pre">train_init.py</span></code>.
-This creates a training set of conversations by randomly combining the
-stories we&#8217;ve provided into longer dialogues, and then trains the policy on that dataset.</p>
-<p>Then, run the script <code class="docutils literal"><span class="pre">run.py</span></code> to talk to the bot.
-You should be able to have a conversation similar to the one below</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">we haven&#8217;t connected an NLU tool here,
-so when you type messages to the bot you have to
-type the intent starting with a <cite>/</cite>. (see <a class="reference internal" href="interpreters.html#fixed-intent-format"><span class="std std-ref">Fixed intent &amp; entity input</span></a>)
-If you want to use Rasa NLU / wit.ai / Lex you
-can just swap the <cite>Interpreter</cite> class in <cite>run.py</cite>.</p>
-</div>
-<div class="highlight-text"><div class="highlight"><pre><span></span>Bot loaded. Type hello and press enter :
-/greet
-hey there!
-/search_concerts
-Here&#39;s what I found:
-Katy Perry, Foo Fighters
-/goodbye
-goodbye :(
-</pre></div>
-</div>
-<p>Now we&#8217;ll train the bot to use context
-to respond correctly to the <code class="docutils literal"><span class="pre">compare_reviews</span></code> intent.</p>
-</div>
 <div class="section" id="id1">
 <h2>Interactive Learning<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Run the script <code class="docutils literal"><span class="pre">train_online.py</span></code>.
-This first repeats the process in the <code class="docutils literal"><span class="pre">train_init</span></code> script, creating
-a stateless policy.</p>
-<p>It then runs the bot so that you can provide feedback to train it:</p>
+<p>Run the script <code class="docutils literal"><span class="pre">train_online.py</span></code>. This first runs the
+<code class="docutils literal"><span class="pre">train_init</span></code> script, creating a stateless policy by combining the stories
+we&#8217;ve provided into longer dialogues, and then trains the policy on that
+dataset.</p>
+<p>It then runs the bot so that you can provide feedback to train it (this is
+where the learning <em>becomes interactive</em>):</p>
 <p><strong>Happy paths</strong></p>
-<p>We can start talking to the bot as before,
-directly entering the intents. For example, if we type <code class="docutils literal"><span class="pre">/greet</span></code>, we get
-the following prompt:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We haven&#8217;t connected an NLU tool here,
+so when you type messages to the bot you have to
+type the intent starting with a <code class="docutils literal"><span class="pre">/</span></code> (see <a class="reference internal" href="interpreters.html#fixed-intent-format"><span class="std std-ref">Fixed intent &amp; entity input</span></a>).
+If you want to use Rasa NLU / wit.ai / Lex you
+can just swap the <code class="docutils literal"><span class="pre">Interpreter</span></code> class in <code class="docutils literal"><span class="pre">run.py</span></code>.</p>
+</div>
+<p>We now start talking to the bot by directly entering the intents. For
+example, if we type <code class="docutils literal"><span class="pre">/greet</span></code>, we get the following prompt:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>/greet
 ------
 Chat history:
 
      bot did:        action_listen
-
      user said:      /greet
-
                 whose intent is:     greet
 
 we currently have slots: {&#39;location&#39;: None}
-
 ------
 The bot wants to [greet] due to the intent. Is this correct?
 
@@ -453,27 +423,25 @@ The bot wants to [greet] due to the intent. Is this correct?
 </pre></div>
 </div>
 <p>This gives you all the info you should hopefully need to decide
-what the bot <em>should</em> have done.
-In this case, the bot chose the right action (&#8216;greet&#8217;), so we type <code class="docutils literal"><span class="pre">1</span></code> and hit enter.
-We continue this loop until the bot chooses the wrong action.</p>
+what the bot <em>should</em> have done. In this case, the bot chose the right
+action (&#8216;greet&#8217;), so we type <code class="docutils literal"><span class="pre">1</span></code> and hit enter. We continue this loop
+until the bot chooses the wrong action.</p>
 <p><strong>Providing feedback on errors</strong></p>
-<p>We&#8217;ve just asked the bot to search for concerts, and now we&#8217;re asking it to compare reviews. The bot happens to choose the wrong one out of the two possibilities we wrote in the stories:</p>
+<p>We&#8217;ve just asked the bot to search for concerts, and now we&#8217;re asking it to
+compare reviews. The bot happens to choose the wrong one out of the two
+possibilities we wrote in the stories:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>/compare_reviews
 ------
 Chat history:
 
      bot did:        action_search_concerts
-
      bot did:        action_suggest
-
      bot did:        action_listen
-
      user said:      /compare_reviews
 
                 whose intent is:     compare_reviews
 
 we currently have slots: {&#39;location&#39;: None}
-
 ------
 The bot wants to [show_venue_reviews] due to the intent. Is this correct?
 
@@ -483,38 +451,46 @@ The bot wants to [show_venue_reviews] due to the intent. Is this correct?
     0.       Export current conversations as stories and quit
 </pre></div>
 </div>
-<p>Now we type <code class="docutils literal"><span class="pre">2</span></code>, because it chose the wrong action,
-and we get a new prompt asking for the correct one.
-This also shows the probabilities the model has assigned to each of the actions.</p>
-<div class="highlight-text"><div class="highlight"><pre><span></span>------
-what is the next action for the bot?
-
-     0       default  0.00148131744936
-     1       greet    0.0970264300704
-     2       goodbye  0.0288009047508
-     3       listen   0.00123148341663
-     6       search_cinemas  0.000627864559647
-     8       search_films    0.0367559418082
-     9       suggest         0.0261212754995
-     11      youarewelcome   0.594935178757
-     13      explain_options 0.0516758263111
-     14      store_slot      0.00145904591773
-     15      show_cinema_reviews     0.00887114647776
-     16      show_film_reviews       0.0870243906975
-</pre></div>
-</div>
-<p>In this case, the bot should <code class="docutils literal"><span class="pre">show_film_reviews</span></code> (rather than cinema reviews!) so we type <code class="docutils literal"><span class="pre">16</span></code> and hit enter.</p>
+<p>Now we type <code class="docutils literal"><span class="pre">2</span></code>, because it chose the wrong action, and we get a new
+prompt asking for the correct one. This also shows the probabilities the
+model has assigned to each of the actions.</p>
+<p>In this case, the bot should <code class="docutils literal"><span class="pre">show_film_reviews</span></code> (rather than cinema
+reviews!) so we type <code class="docutils literal"><span class="pre">16</span></code> and hit enter.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The policy model will get updated <em>on-the-fly</em>,
 so that it&#8217;s less likely to make the same mistake again.
-You can also export all of the conversations you have with the bot so you can add these as training stories in the future.</p>
+You can also export all of the conversations you have with the bot so
+you can add these as training stories in the future.</p>
 </div>
-<p>Now we can keep talking to the bot for as long as we like
-to create a longer conversation. At any point you can type <code class="docutils literal"><span class="pre">0</span></code>
-and the bot will write the current conversation to a file and exit
-the conversation. Make sure to combine the dumped story with your original
-training data for the next training.</p>
+<p>Now we can keep talking to the bot for as long as we like to create a longer
+conversation. At any point you can type <code class="docutils literal"><span class="pre">0</span></code> and the bot will write the
+current conversation to a file and exit the conversation. Make sure to
+combine the dumped story with your original training data for the next
+training.</p>
+</div>
+<div class="section" id="motivation-why-interactive-learning">
+<h2>Motivation: Why Interactive Learning?<a class="headerlink" href="#motivation-why-interactive-learning" title="Permalink to this headline">¶</a></h2>
+<p>There are some complications to chatbot training which makes it more
+tricky than most machine learning problems.</p>
+<p>The first is that there are several ways of getting to the same goal, and
+they may all be equivalently good. Therefore it is wrong to say with
+certainty that given X, you should do Y, and if you do not do exactly Y then
+you are wrong. This is essentially what you do in a fully supervised
+learning case. We want the bot to be able to learn it can get to a
+successful state through a number of different means.</p>
+<p>Secondly, the utterances from users will be strongly affected by the
+actions of the bot. That means that a network trained on pre-collected
+data will suffer from <a class="reference external" href="https://arxiv.org/abs/1511.06732">exposure bias</a>.
+This is when a system is trained to make predictions but is never given the
+ability to train on its own predictions, instead being given the
+ground truth every time. This has been shown to have issues when trying
+to predict sequences of multiple steps into the future.</p>
+<p>Furthermore, from a practical perspective, Rasa Core developers should be
+able to train via the <a class="reference external" href="https://en.wikipedia.org/wiki/Wizard_of_Oz_experiment">Wizard of Oz</a> method. This means that if you want a
+bot to do a certain task, you can simply pretend to be a bot for a little
+while and at the end it will learn how to respond. This is a good way of
+learning how to make the conversation natural and flowing.</p>
 <div class="rating-container">
     <div class="rating-text">
       <p> How was the tutorial? Click to Vote </p>
