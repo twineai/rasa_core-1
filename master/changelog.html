@@ -351,6 +351,8 @@ logs from older conversation if one recently removed an action from the domain</
 <li>fixed float slot min max value handling</li>
 <li>fixed non integer feature decoding, e.g. used for memoization policy</li>
 <li>properly log to specified file when starting Rasa Core server</li>
+<li>properly calculate offset of last reset event after loading tracker from
+tracker store</li>
 </ul>
 </div>
 </div>
@@ -605,7 +607,6 @@ wrong predictions</li>
         </dl>
         <dl>
             <dt>Branches</dt>
-            <dd><a href="../latest-restart/changelog.html">latest-restart</a></dd>
             <dd><a href="changelog.html">master</a></dd>
         </dl>
     </div>
