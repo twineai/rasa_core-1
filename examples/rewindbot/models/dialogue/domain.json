@@ -2,12 +2,10 @@
   "features": [
     "intent_do_destructive_thing",
     "intent_do_inconsequential_thing",
-    "intent_goodbye",
     "prev_action_listen",
     "prev_action_restart",
-    "prev_utter_greet",
-    "prev_utter_goodbye",
     "prev_action_do_inconsequential_thing",
-    "prev_action_do_destructive_thing"
+    "prev_action_do_destructive_thing_one",
+    "prev_action_do_destructive_thing_two"
   ]
 }

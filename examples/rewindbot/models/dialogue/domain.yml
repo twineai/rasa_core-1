@@ -1,25 +1,18 @@
 action_factory: null
 action_names:
-- utter_greet
-- utter_goodbye
 - action_do_inconsequential_thing
-- action_do_destructive_thing
+- action_do_destructive_thing_one
+- action_do_destructive_thing_two
 actions:
-- utter_greet
-- utter_goodbye
 - actions.ActionDoInconsequentialThing
-- actions.ActionDoDestructiveThing
+- actions.ActionDoDestructiveThingOne
+- actions.ActionDoDestructiveThingTwo
 config:
   store_entities_as_slots: true
 entities: []
 intents:
 - do_destructive_thing
 - do_inconsequential_thing
-- goodbye
 slots: {}
-templates:
-  utter_goodbye:
-  - text: Bye
-  utter_greet:
-  - text: Hey! How are you?
+templates: {}
 topics: []
