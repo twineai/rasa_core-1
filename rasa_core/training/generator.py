@@ -36,7 +36,8 @@ ExtractorConfig = namedtuple("ExtractorConfig", "remove_duplicates "
                                                 "max_number_of_trackers "
                                                 "tracker_limit "
                                                 "use_story_concatenation "
-                                                "rand")
+                                                "rand "
+                                                "detect_conflicts")
 
 TrackerResult = namedtuple("TrackerResult", "features "
                                             "labels "
@@ -120,7 +121,8 @@ class TrainingsDataGenerator(object):
             max_history=1,  # type: int
             max_number_of_trackers=2000,  # type: int
             tracker_limit=None,  # type: Optional[int]
-            use_story_concatenation=True  # type: bool
+            use_story_concatenation=True,  # type: bool
+            detect_conflicts=False  # type: bool
     ):
         # type: (...) -> None
         """Given a set of story parts, generates all stories that are possible.
@@ -141,7 +143,8 @@ class TrainingsDataGenerator(object):
                 max_number_of_trackers=max_number_of_trackers,
                 tracker_limit=tracker_limit,
                 use_story_concatenation=use_story_concatenation,
-                rand=random.Random(42))
+                rand=random.Random(42),
+                detect_conflicts=detect_conflicts)
 
     def generate(self):
         # type: () -> DialogueTrainingData
@@ -229,13 +232,20 @@ class TrainingsDataGenerator(object):
         metadata = {"events": self.events_metadata,
                     "trackers": finished_trackers}
 
+        X_result = X
+        y_result = y
+
         if self.config.remove_duplicates:
-            X_unique, y_unique = self._deduplicate_training_data(X, y)
+            X_result, y_result = self._deduplicate_training_data(X, y)
             logger.debug("Deduplicated to {} unique action examples.".format(
-                    y_unique.shape[0]))
-            return DialogueTrainingData(X_unique, y_unique, metadata)
-        else:
-            return DialogueTrainingData(X, y, metadata)
+                    y_result.shape[0]))
+
+        if self.config.detect_conflicts:
+            logger.info("Detecting conflicts")
+            self._issue_conflicting_labels_notification(X_result, y_result)
+
+        return DialogueTrainingData(X_result, y_result, metadata)
+
 
     def _phase_names(self):
         # type: () -> List[Text]
@@ -453,3 +463,41 @@ class TrainingsDataGenerator(object):
             if not cp.startswith(GENERATED_CHECKPOINT_PREFIX):
                 logger.warn("Unsatisfied start checkpoint '{}' "
                             "in block '{}'".format(cp, block_name))
+
+    def _issue_conflicting_labels_notification(self, X_input, y_input):
+        # type: (ndarray, ndarray) -> None
+        """Detects conflicting labels.
+
+        Conflicting labels occur when the same input is marked with two distinct
+        labels, which can lower model accuracy."""
+
+        featurizations = {}
+        for i, x in enumerate(X_input):
+            y = y_input[i]
+
+            hashed = utils.HashableNDArray(x.copy(order='C'))
+
+            if hashed not in featurizations:
+                featurizations[hashed] = i
+            else:
+                # Figure out which other element had this same featurization.
+                j = featurizations[hashed]
+                y2 = y_input[j]
+
+                # Don't worry if the labels are the same.
+                if y2 == y:
+                    continue
+
+                actions_one = self.domain.action_names[y]
+                actions_two = self.domain.action_names[y2]
+
+                feature_names = []
+                for history_row in x:
+                    feature_names.append(
+                        [self.domain.input_features[idx]
+                         for idx, feature in enumerate(history_row)
+                         if feature > 0])
+
+                logger.warn("Conflicting training data for features '{}' => "
+                            "'{}' and '{}'"
+                            .format(feature_names, actions_one, actions_two))

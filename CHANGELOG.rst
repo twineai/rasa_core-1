@@ -25,6 +25,7 @@ Added
 - Timestamp to every event
 - added a Slack channel that allows Rasa Core to communicate via a Slack app
 - added a Telegram channel that allows Rasa Core to communicate via a Telegram bot
+- added an argument to ``Agent.train()`` to detect conflicting training data
 
 Changed
 -------

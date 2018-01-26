@@ -38,7 +38,8 @@ def extract_training_data_from_file(
         augmentation_factor=20,  # type: int
         max_history=1,  # type: int
         remove_duplicates=True,
-        max_number_of_trackers=2000  # type: int
+        max_number_of_trackers=2000,  # type: int
+        detect_conflicts=False  # type: bool
 ):
     # type: (...) -> DialogueTrainingData
 
@@ -47,7 +48,8 @@ def extract_training_data_from_file(
                                remove_duplicates,
                                augmentation_factor,
                                max_history,
-                               max_number_of_trackers)
+                               max_number_of_trackers,
+                               detect_conflicts=detect_conflicts)
     return g.generate()
 
 

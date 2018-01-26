@@ -35,3 +35,10 @@ The parameter ``max_history`` defines how many states go into defining each row 
 
 Hence the statement above that ``X`` is 2D is actually false, it has shape ``(num_states, max_history, num_features)``.
 For most algorithms you want a flat feature vector, so you will have to reshape this to ``(num_states, max_history * num_features)``.
+
+Troubleshooting
+---------------
+
+Improperly configured stories may lead to identical featurizations having different labels applied to them, which will lower the accuracy of the machine learning algorithms.
+
+If you suspect that your data may be generating conflicting samples, you can pass the ``detect_conflicts=True`` argument to ``Agent.train()``, and it will emit warnings if conflicts are detected.

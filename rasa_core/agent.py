@@ -143,13 +143,14 @@ class Agent(object):
                 p.toggle(activate)
 
     def train(self, filename=None, model_path=None, remove_duplicates=True,
-              **kwargs):
+              detect_conflicts=False, **kwargs):
         # type: (Optional[Text], Optional[Text], **Any) -> None
         """Train the policies / policy ensemble using dialogue data from file"""
 
         trainer = PolicyTrainer(self.policy_ensemble, self.domain,
                                 self.featurizer)
-        trainer.train(filename, remove_duplicates=remove_duplicates, **kwargs)
+        trainer.train(filename, remove_duplicates=remove_duplicates,
+                      detect_conflicts=detect_conflicts, **kwargs)
 
         if model_path:
             self.persist(model_path)
