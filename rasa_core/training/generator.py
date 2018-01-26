@@ -241,7 +241,6 @@ class TrainingsDataGenerator(object):
                     y_result.shape[0]))
 
         if self.config.detect_conflicts:
-            logger.info("Detecting conflicts")
             self._issue_conflicting_labels_notification(X_result, y_result)
 
         return DialogueTrainingData(X_result, y_result, metadata)
