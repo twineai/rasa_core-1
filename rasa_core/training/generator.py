@@ -245,7 +245,6 @@ class TrainingsDataGenerator(object):
 
         return DialogueTrainingData(X_result, y_result, metadata)
 
-
     def _phase_names(self):
         # type: () -> List[Text]
         """Create names for the different data generation phases"""
